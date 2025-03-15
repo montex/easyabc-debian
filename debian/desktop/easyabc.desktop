@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=EasyABC
+GenericName=ABC Music Notation File Editor
+Comment=Edit music scores in ABC format
+Keywords=abc;audio;music;
+Type=Application
+Icon=easyabc
+Categories=Audio;
+Exec=easyabc %F
+Terminal=false
+StartupNotify=true

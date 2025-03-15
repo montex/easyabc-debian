@@ -1,0 +1,54 @@
+#!/usr/bin/make -f
+
+# See debhelper(7) (uncomment to enable).
+# Output every command that modifies files on the build system.
+#export DH_VERBOSE = 1
+
+
+# See FEATURE AREAS in dpkg-buildflags(1).
+#export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+# See ENVIRONMENT in dpkg-buildflags(1).
+# Package maintainers to append CFLAGS.
+#export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
+# Package maintainers to append LDFLAGS.
+#export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
+
+override_dh_auto_install:
+	# Copy application files to location for installation
+	mkdir -p debian/tmp/usr/lib/easyabc/ 
+	tar cf debian/tmp/dist.tar \
+		--exclude=.git* \
+		--exclude=debian \
+		--exclude="not used" \
+		--exclude=bin \
+		--exclude=oldbin \
+		--exclude=".vscode" \
+		--exclude="creating_an_executable.txt" \
+		.
+	cd debian/tmp/usr/lib/easyabc/ && tar xf ../../../dist.tar
+	rm debian/tmp/dist.tar
+
+	# Create icon folders for symlinks
+	cd debian/tmp && \
+	for size in 16 32 64 256; do \
+		mkdir -p "usr/share/icons/hicolor/$${size}x$${size}/apps/"; \
+	done
+
+	# Make main application file executable
+	chmod +x debian/tmp/usr/lib/easyabc/easy_abc.py
+
+	mkdir -p debian/tmp/usr/share/applications/
+	cp debian/desktop/* debian/tmp/usr/share/applications/
+
+	dh_auto_install
+
+%:
+	dh $@
+
+
+# dh_make generated override targets.
+# This is an example for Cmake (see <https://bugs.debian.org/641051>).
+#override_dh_auto_configure:
+#	dh_auto_configure -- \
+#	-DCMAKE_LIBRARY_PATH=$(DEB_HOST_MULTIARCH)

@@ -1,0 +1,5 @@
+/usr/lib/easyabc/img/logo16.png /usr/share/icons/hicolor/16x16/apps/easyabc.png
+/usr/lib/easyabc/img/logo32.png /usr/share/icons/hicolor/32x32/apps/easyabc.png
+/usr/lib/easyabc/img/logo64.png /usr/share/icons/hicolor/64x64/apps/easyabc.png
+/usr/lib/easyabc/img/logo256.png /usr/share/icons/hicolor/256x256/apps/easyabc.png
+/usr/lib/easyabc/easy_abc.py /usr/bin/easyabc 
